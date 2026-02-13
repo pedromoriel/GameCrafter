@@ -9,21 +9,27 @@
     "account": "Account"
   },
   "home": {
-    "title": "Welcome to GameCrafter",
+    "title": "Welcome to GameCrafter 🎮",
+    "subtitle": "Learn programming by creating games",
     "welcome": "Ready to create your next game?",
     "myGames": "My Games",
     "startLearning": "Start Learning",
     "lastLesson": "Last Lesson",
     "yourProgress": "Your Progress",
-    "noGames": "No saved Games",
+    "noGames": "No saved games yet",
     "createNewGame": "Create New Game",
+    "newGame": "New Game",
     "viewAll": "View All",
     "continue": "Continue",
     "explore": "Explore",
     "today": "Today",
     "yesterday": "Yesterday",
     "daysAgo": "days ago",
-    "noLessonStarted": "No Lesson Started"
+    "noLessonStarted": "No Lesson Started",
+    "beginYourJourney": "Begin Your Journey",
+    "learnProgramming": "Start learning programming with our structured levels",
+    "startNow": "Start Now",
+    "level": "Level"
   },
   "editor": {
     "title": "Game Editor",
