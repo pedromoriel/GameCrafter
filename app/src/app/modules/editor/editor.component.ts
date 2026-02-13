@@ -21,25 +21,188 @@ import { UserService, UserRole, UserProfile } from '../../core/services/user.ser
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent implements OnInit, OnDestroy {
-  gameCode = `
-// Example: Simple Phaser Game
+  programmingLanguage: 'javascript' | 'typescript' = 'javascript';
+
+  gameCode = `// Phaser 3 - Space Shooter Game
 class MyScene extends Phaser.Scene {
   constructor() {
     super({ key: 'MyScene' });
   }
 
   create() {
-    // Add a sprite
-    this.add.rectangle(400, 300, 100, 100, 0x00d4ff);
+    // Crear la nave espacial (triángulo usando gráficos)
+    this.ship = this.add.graphics();
+    this.ship.fillStyle(0x00d4ff, 1);
+    this.ship.beginPath();
+    this.ship.moveTo(400, 250); // Punta superior
+    this.ship.lineTo(370, 300); // Esquina inferior izquierda
+    this.ship.lineTo(430, 300); // Esquina inferior derecha
+    this.ship.closePath();
+    this.ship.fillPath();
+    this.ship.x = 0;
+    this.ship.y = 0;
 
-    // Add text
-    this.add.text(400, 100, 'Hello GameCrafter!', {
+    // Propiedades de la nave
+    this.shipX = 400;
+    this.shipY = 300;
+    this.shipSpeed = 5;
+
+    // Array para almacenar municiones
+    this.bullets = this.add.group();
+
+    // Texto de título
+    this.add.text(400, 40, 'Space Shooter', {
       color: '#00d4ff',
-      fontSize: '24px'
+      fontSize: '28px',
+      fontStyle: 'bold'
     }).setOrigin(0.5);
+
+    // Crear controles transparentes
+    this.createControls();
+
+    // Propiedades de controles
+    this.leftPressed = false;
+    this.rightPressed = false;
+    this.firePressed = false;
+
+    // Input desde teclado también
+    this.input.keyboard.on('keydown-LEFT', () => {
+      this.leftPressed = true;
+    });
+    this.input.keyboard.on('keyup-LEFT', () => {
+      this.leftPressed = false;
+    });
+    this.input.keyboard.on('keydown-RIGHT', () => {
+      this.rightPressed = true;
+    });
+    this.input.keyboard.on('keyup-RIGHT', () => {
+      this.rightPressed = false;
+    });
+    this.input.keyboard.on('keydown-SPACE', () => {
+      this.fireProjectile();
+    });
+  }
+
+  createControls() {
+    const controlsY = 520; // Posición en la parte baja
+    const buttonWidth = 80;
+    const buttonHeight = 80;
+    const padding = 20;
+
+    // ===== CONTROLES DE MOVIMIENTO (LADO IZQUIERDO) =====
+    
+    // Botón flecha izquierda
+    const leftButton = this.add.rectangle(60, controlsY, buttonWidth, buttonHeight, 0x666666, 0.5);
+    leftButton.setInteractive();
+    leftButton.on('pointerdown', () => {
+      this.leftPressed = true;
+    });
+    leftButton.on('pointerup', () => {
+      this.leftPressed = false;
+    });
+    leftButton.on('pointerout', () => {
+      this.leftPressed = false;
+    });
+
+    // Agregar flecha izquierda visual (más grande)
+    this.add.text(60, controlsY, '◀', {
+      color: '#00d4ff',
+      fontSize: '48px'
+    }).setOrigin(0.5).setDepth(1);
+
+    // Botón flecha derecha
+    const rightButton = this.add.rectangle(180, controlsY, buttonWidth, buttonHeight, 0x666666, 0.5);
+    rightButton.setInteractive();
+    rightButton.on('pointerdown', () => {
+      this.rightPressed = true;
+    });
+    rightButton.on('pointerup', () => {
+      this.rightPressed = false;
+    });
+    rightButton.on('pointerout', () => {
+      this.rightPressed = false;
+    });
+
+    // Agregar flecha derecha visual (más grande)
+    this.add.text(180, controlsY, '▶', {
+      color: '#00d4ff',
+      fontSize: '48px'
+    }).setOrigin(0.5).setDepth(1);
+
+    // ===== BOTÓN DE DISPARO (LADO DERECHO - REDONDO) =====
+    
+    // Crear un círculo para el botón de disparo
+    const fireButton = this.add.circle(740, controlsY, 50, 0x00d4ff, 0.6);
+    fireButton.setInteractive();
+    fireButton.on('pointerdown', () => {
+      this.fireProjectile();
+    });
+
+    // Agregar texto al botón de disparo
+    this.add.text(740, controlsY, 'FIRE', {
+      color: '#ffffff',
+      fontSize: '18px',
+      fontStyle: 'bold'
+    }).setOrigin(0.5).setDepth(1);
+  }
+
+  fireProjectile() {
+    // Crear munición
+    const bullet = this.add.rectangle(this.shipX, this.shipY - 30, 5, 15, 0x00ff00);
+    bullet.setData('velocityY', -7);
+
+    this.bullets.add(bullet);
+  }
+
+  update() {
+    // Mover la nave a la izquierda
+    if (this.leftPressed && this.shipX > 30) {
+      this.shipX -= this.shipSpeed;
+    }
+
+    // Mover la nave a la derecha
+    if (this.rightPressed && this.shipX < 770) {
+      this.shipX += this.shipSpeed;
+    }
+
+    // Actualizar posición de la nave
+    this.ship.clear();
+    this.ship.fillStyle(0x00d4ff, 1);
+    this.ship.beginPath();
+    this.ship.moveTo(this.shipX, this.shipY); // Punta superior
+    this.ship.lineTo(this.shipX - 30, this.shipY + 50); // Esquina inferior izquierda
+    this.ship.lineTo(this.shipX + 30, this.shipY + 50); // Esquina inferior derecha
+    this.ship.closePath();
+    this.ship.fillPath();
+
+    // Actualizar municiones
+    this.bullets.children.entries.forEach((bullet) => {
+      bullet.y += bullet.getData('velocityY');
+
+      // Eliminar munición si sale de pantalla
+      if (bullet.y < 0) {
+        bullet.destroy();
+      }
+    });
   }
 }
-  `;
+
+// Configuración de Phaser
+const config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  scene: MyScene,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+      debug: false
+    }
+  }
+};
+
+const game = new Phaser.Game(config);`;
   
   public displayedCode = '';
   userProfile: UserProfile | null = null;
@@ -121,6 +284,11 @@ class MyScene extends Phaser.Scene {
     }).catch(error => {
       // Handle error silently
     });
+  }
+
+  changeProgrammingLanguage(language: 'javascript' | 'typescript'): void {
+    this.programmingLanguage = language;
+    this.cdr.markForCheck();
   }
 
   onRunCode(code: string): void {
