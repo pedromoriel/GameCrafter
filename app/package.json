@@ -40,6 +40,8 @@
     "@capacitor/core": "^5.7.0",
     "@ionic/angular": "^8.0.0",
     "@ionic/angular-toolkit": "^11.0.0",
+    "@ngx-translate/core": "^17.0.0",
+    "@ngx-translate/http-loader": "^17.0.0",
     "firebase": "^12.9.0",
     "monaco-editor": "^0.55.1",
     "phaser": "^3.90.0",

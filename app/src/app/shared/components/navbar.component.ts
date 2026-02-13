@@ -7,8 +7,10 @@ import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
 import { RippleModule } from 'primeng/ripple';
 import { MenuItem } from 'primeng/api';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { UserService, UserRole, UserProfile } from '../../core/services/user.service';
+import { LanguageService } from '../../core/services/language.service';
 import { Observable, of, Subject } from 'rxjs';
 import { switchMap, takeUntil, filter, shareReplay, startWith, retry } from 'rxjs/operators';
 
@@ -25,7 +27,8 @@ import { switchMap, takeUntil, filter, shareReplay, startWith, retry } from 'rxj
     MenuModule,
     ButtonModule,
     TagModule,
-    RippleModule
+    RippleModule,
+    TranslateModule
   ],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
@@ -33,14 +36,19 @@ import { switchMap, takeUntil, filter, shareReplay, startWith, retry } from 'rxj
 export class NavbarComponent implements OnInit, OnDestroy {
   userProfile$: Observable<UserProfile | null> = of(null);
   profileMenuItems: MenuItem[] = [];
+  currentLanguage$: Observable<string>;
   private destroy$ = new Subject<void>();
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private languageService: LanguageService,
+    private translateService: TranslateService,
     private router: Router,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) {
+    this.currentLanguage$ = this.languageService.getCurrentLanguage();
+  }
 
   ngOnInit(): void {
     this.loadUserInfo();
@@ -87,6 +95,23 @@ export class NavbarComponent implements OnInit, OnDestroy {
         separator: true
       },
       {
+        label: 'Language',
+        icon: 'pi pi-globe',
+        items: [
+          {
+            label: 'English',
+            command: () => this.changeLanguage('en')
+          },
+          {
+            label: 'Español',
+            command: () => this.changeLanguage('es')
+          }
+        ]
+      },
+      {
+        separator: true
+      },
+      {
         label: 'Logout',
         icon: 'pi pi-sign-out',
         command: () => this.onLogout()
@@ -120,5 +145,24 @@ export class NavbarComponent implements OnInit, OnDestroy {
     }).catch(() => {
       // Handle logout error silently
     });
+  }
+
+  changeLanguage(lang: 'en' | 'es'): void {
+    this.languageService.setLanguage(lang);
+    
+    // Update user profile language preference
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.userService.updateUserProfile(currentUser.uid, { language: lang })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(
+          () => {
+            this.cdr.markForCheck();
+          },
+          () => {
+            // Handle error silently - language is changed even if profile update fails
+          }
+        );
+    }
   }
 }

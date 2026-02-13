@@ -19,6 +19,7 @@ export interface UserProfile {
   offlineCodingEnabled: boolean;
   totalCodesCount: number;
   completedLevels: string[];
+  language?: 'en' | 'es';
 }
 
 @Injectable({
@@ -34,7 +35,7 @@ export class UserService {
   /**
    * Crear un nuevo perfil de usuario
    */
-  createUserProfile(uid: string, email: string, displayName: string, photoURL?: string): Observable<void> {
+  createUserProfile(uid: string, email: string, displayName: string, photoURL?: string, language: 'en' | 'es' = 'en'): Observable<void> {
     const userProfile: UserProfile = {
       uid,
       email,
@@ -45,7 +46,8 @@ export class UserService {
       updatedAt: new Date(),
       offlineCodingEnabled: false,
       totalCodesCount: 0,
-      completedLevels: []
+      completedLevels: [],
+      language
     };
     return this.ngZone.run(() =>
       from(setDoc(doc(this.getUsersCollection(), uid), userProfile))

@@ -2,8 +2,8 @@
   <!-- Header -->
   <div class="home-header">
     <div class="header-content">
-      <h1>Welcome to GameCrafter 🎮</h1>
-      <p class="subtitle">Learn programming by creating games</p>
+      <h1>{{ 'home.title' | translate }}</h1>
+      <p class="subtitle">{{ 'home.subtitle' | translate }}</p>
     </div>
   </div>
 
@@ -13,7 +13,7 @@
     <div class="dashboard-section my-games-section">
       <div class="section-header">
         <i class="pi pi-save"></i>
-        <h3>My Games</h3>
+        <h3>{{ 'home.myGames' | translate }}</h3>
       </div>
       
       <!-- Show games if exists -->
@@ -35,17 +35,17 @@
             [routerLink]="['/editor', game.id]"></button>
         </div>
         <div class="game-card add-new">
-          <button pButton label="New Game" icon="pi pi-plus" [routerLink]="['/editor']" class="w-full"></button>
+          <button pButton label="{{ 'home.newGame' | translate }}" icon="pi pi-plus" [routerLink]="['/editor']" class="w-full"></button>
         </div>
       </div>
 
       <!-- Show "No saved games" if empty -->
       <div *ngIf="!hasGames" class="no-games-container">
         <div class="no-games-icon">🎮</div>
-        <p class="no-games-text">No saved games yet</p>
+        <p class="no-games-text">{{ 'home.noGames' | translate }}</p>
         <button 
           pButton 
-          label="Create New Game" 
+          label="{{ 'home.createNewGame' | translate }}" 
           icon="pi pi-plus"
           class="new-game-btn"
           [routerLink]="['/editor']"></button>
@@ -56,7 +56,7 @@
     <div class="dashboard-section recent-lesson-section">
       <div class="section-header">
         <i class="pi" [ngClass]="hasRecentLesson ? 'pi-bookmark' : 'pi-play'"></i>
-        <h3>{{ hasRecentLesson ? 'Last Lesson' : 'Start Learning' }}</h3>
+        <h3>{{ hasRecentLesson ? ('home.lastLesson' | translate) : ('home.startLearning' | translate) }}</h3>
       </div>
       
       <!-- Show recent lesson if exists -->
@@ -64,12 +64,12 @@
         <div class="lesson-emoji">{{ recentLesson.emoji }}</div>
         <div class="lesson-info">
           <h4>{{ recentLesson.title }}</h4>
-          <p class="lesson-level">{{ recentLesson.levelTitle }} Level</p>
+          <p class="lesson-level">{{ recentLesson.levelTitle }} {{ 'home.level' | translate }}</p>
           <p class="lesson-time">{{ getFormattedDate(recentLesson.lastAccessed) }}</p>
         </div>
         <button 
           pButton 
-          label="Continue" 
+          label="{{ 'home.continue' | translate }}" 
           icon="pi pi-play"
           class="continue-btn"
           (click)="continueLesson()"></button>
@@ -79,12 +79,12 @@
       <div *ngIf="!hasRecentLesson" class="start-learning-card">
         <div class="learning-emoji">📚</div>
         <div class="learning-info">
-          <h4>Begin Your Journey</h4>
-          <p class="learning-desc">Start learning programming with our structured levels</p>
+          <h4>{{ 'home.beginYourJourney' | translate }}</h4>
+          <p class="learning-desc">{{ 'home.learnProgramming' | translate }}</p>
         </div>
         <button 
           pButton 
-          label="Start Now" 
+          label="{{ 'home.startNow' | translate }}" 
           icon="pi pi-arrow-right"
           class="start-btn"
           [routerLink]="['/learning']"></button>
@@ -95,7 +95,7 @@
     <div class="dashboard-section level-progress-section">
       <div class="section-header">
         <i class="pi pi-chart-line"></i>
-        <h3>Your Progress</h3>
+        <h3>{{ 'home.yourProgress' | translate }}</h3>
       </div>
       <div class="levels-progress">
         <div class="progress-item" *ngFor="let level of levels">

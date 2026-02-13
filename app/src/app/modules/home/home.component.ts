@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../core/services/auth.service';
 import { FirebaseService, GameCode } from '../../core/services/firebase.service';
 import { UserService, UserProfile, UserRole } from '../../core/services/user.service';
@@ -43,7 +44,7 @@ const GAME_LIMITS: Record<UserRole, number> = {
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonModule, RouterModule, GameActionsModalComponent, DialogModule],
+  imports: [CommonModule, ButtonModule, RouterModule, GameActionsModalComponent, DialogModule, TranslateModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
