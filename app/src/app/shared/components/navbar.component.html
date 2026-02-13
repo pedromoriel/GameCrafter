@@ -2,26 +2,26 @@
   <!-- Brand -->
   <div class="navbar-brand-section">
     <span class="brand-icon">🎮</span>
-    <span class="brand-text">GameCrafter</span>
+    <span class="brand-text">{{ 'navbar.brand' | translate }}</span>
   </div>
 
   <!-- Navigation Buttons -->
   <div class="navbar-nav-section">
     <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
       <i class="pi pi-home"></i>
-      <span>Home</span>
+      <span>{{ 'navbar.home' | translate }}</span>
     </a>
     <a routerLink="/editor" routerLinkActive="active" class="nav-link">
       <i class="pi pi-code"></i>
-      <span>Editor</span>
+      <span>{{ 'navbar.editor' | translate }}</span>
     </a>
     <a routerLink="/learning" routerLinkActive="active" class="nav-link">
       <i class="pi pi-book"></i>
-      <span>Learning Path</span>
+      <span>{{ 'navbar.learning' | translate }}</span>
     </a>
     <a routerLink="/community" routerLinkActive="active" class="nav-link">
       <i class="pi pi-users"></i>
-      <span>Community</span>
+      <span>{{ 'navbar.community' | translate }}</span>
     </a>
   </div>
 
@@ -31,7 +31,7 @@
       type="button"
       class="upgrade-button"
       [routerLink]="['/select-plan']">
-      <span class="upgrade-text">✨ Upgrade Now</span>
+      <span class="upgrade-text">✨ {{ 'selectPlan.upgradeNow' | translate }}</span>
     </button>
   </div>
 

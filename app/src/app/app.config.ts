@@ -7,8 +7,19 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { routes } from './app.routes';
+
+export class CustomTranslateLoader implements TranslateLoader {
+  constructor(private http: HttpClient) {}
+
+  getTranslation(lang: string): Observable<any> {
+    return this.http.get(`./assets/i18n/${lang}.json`);
+  }
+}
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAIvI0HKOL3T3iBWL9IV1LVNnTHWZCQGds',
@@ -43,7 +54,15 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    ...TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useClass: CustomTranslateLoader,
+        deps: [HttpClient]
+      }
+    }).providers || []
   ]
 };
 
