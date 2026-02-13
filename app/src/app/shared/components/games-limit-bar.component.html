@@ -1,7 +1,7 @@
 <div class="limit-bar-container">
   <div class="limit-info-header">
     <div class="limit-text">
-      <span class="label">📊 Your Games:</span>
+      <span class="label">📊 {{ 'editor.yourGames' | translate }}:</span>
       <span class="count">{{ gameCount }}</span>
       <span class="separator">/</span>
       <span class="limit">{{ gameLimit === Infinity ? '∞' : gameLimit }}</span>
@@ -23,19 +23,19 @@
 
   <div class="limit-footer">
     <span class="progress-text">
-      {{ gameCount }} of {{ gameLimit === Infinity ? '∞' : gameLimit }} slots used
+      {{ gameCount }} {{ 'common.of' | translate }} {{ gameLimit === Infinity ? '∞' : gameLimit }} {{ 'editor.slotsUsed' | translate }}
     </span>
     <span 
       *ngIf="gameCount >= gameLimit && gameLimit !== Infinity" 
       class="limit-warning"
     >
-      🔒 Limit reached - upgrade to save more
+      🔒 {{ 'editor.limitReachedUpgrade' | translate }}
     </span>
     <span 
       *ngIf="gameLimit !== Infinity && gameCount < gameLimit" 
       class="slots-remaining"
     >
-      ✨ {{ gameLimit - gameCount }} slot{{ gameLimit - gameCount !== 1 ? 's' : '' }} remaining
+      ✨ {{ gameLimit - gameCount }} {{ gameLimit - gameCount !== 1 ? ('editor.slotsRemainingPlural' | translate) : ('editor.slotsRemaining' | translate) }} {{ 'editor.slotsRemainingText' | translate }}
     </span>
   </div>
 </div>

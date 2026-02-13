@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { UserRole } from '../../core/services/user.service';
 
 @Component({
   selector: 'app-games-limit-bar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './games-limit-bar.component.html',
   styleUrls: ['./games-limit-bar.component.scss']
 })

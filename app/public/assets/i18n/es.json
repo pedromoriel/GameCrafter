@@ -53,7 +53,13 @@
     "notLoggedIn": "No Iniciaste Sesión",
     "mustLogin": "Debes iniciar sesión para guardar código",
     "understood": "Entendido",
-    "great": "¡Excelente!"
+    "great": "¡Excelente!",
+    "yourGames": "Tus Juegos",
+    "slotsUsed": "espacios usados",
+    "limitReachedUpgrade": "Límite alcanzado - actualiza para guardar más",
+    "slotsRemaining": "espacio",
+    "slotsRemainingPlural": "espacios",
+    "slotsRemainingText": "disponibles"
   },
   "learning": {
     "title": "Ruta de Aprendizaje",
@@ -187,7 +193,8 @@
     "settings": "Configuración",
     "profile": "Perfil",
     "help": "Ayuda",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "of": "de"
   },
   "settings": {
     "title": "Configuración",

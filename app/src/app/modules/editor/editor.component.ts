@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -15,7 +16,7 @@ import { UserService, UserRole, UserProfile } from '../../core/services/user.ser
 @Component({
   selector: 'app-editor',
   standalone: true,
-  imports: [CommonModule, CodeEditorComponent, GameCanvasComponent, ModalComponent, InputModalComponent, GamesLimitBarComponent],
+  imports: [CommonModule, CodeEditorComponent, GameCanvasComponent, ModalComponent, InputModalComponent, GamesLimitBarComponent, TranslateModule],
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss']
 })

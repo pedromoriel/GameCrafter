@@ -53,7 +53,13 @@
     "notLoggedIn": "Not Logged In",
     "mustLogin": "You must be logged in to save code",
     "understood": "Understood",
-    "great": "Great!"
+    "great": "Great!",
+    "yourGames": "Your Games",
+    "slotsUsed": "slots used",
+    "limitReachedUpgrade": "Limit reached - upgrade to save more",
+    "slotsRemaining": "slot",
+    "slotsRemainingPlural": "slots",
+    "slotsRemainingText": "remaining"
   },
   "learning": {
     "title": "Learning Path",
@@ -187,7 +193,8 @@
     "settings": "Settings",
     "profile": "Profile",
     "help": "Help",
-    "about": "About"
+    "about": "About",
+    "of": "of"
   },
   "settings": {
     "title": "Settings",
