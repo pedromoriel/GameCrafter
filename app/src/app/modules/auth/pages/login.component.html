@@ -1,0 +1,75 @@
+<div class="auth-wrapper">
+  <div class="auth-background"></div>
+  <div class="auth-container">
+    <div class="auth-card">
+      <!-- Header -->
+      <div class="auth-header">
+        <div class="auth-logo">
+          <div class="logo-icon">🎮</div>
+          <h1>GameCrafter</h1>
+        </div>
+        <p class="auth-subtitle">Sign in to your account</p>
+      </div>
+
+      <!-- Form -->
+      <form (ngSubmit)="onLogin()" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            id="email"
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+            class="form-input"
+          />
+          <span class="input-focus-border"></span>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            required
+            class="form-input"
+          />
+          <span class="input-focus-border"></span>
+        </div>
+
+        <button
+          type="submit"
+          [disabled]="isLoading"
+          class="btn btn-primary btn-block"
+        >
+          <span *ngIf="!isLoading">Sign In</span>
+          <span *ngIf="isLoading" class="loading-spinner"></span>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="auth-divider">
+        <span>Or continue with</span>
+      </div>
+
+      <!-- Social Login -->
+      <button
+        (click)="onGoogleLogin()"
+        [disabled]="isLoading"
+        class="btn btn-social"
+      >
+        Login with Google
+      </button>
+
+      <!-- Footer -->
+      <div class="auth-footer">
+        <p>Don't have an account?</p>
+        <a [routerLink]="['/auth/register']" class="auth-link">Create one</a>
+      </div>
+    </div>
+  </div>
+</div>

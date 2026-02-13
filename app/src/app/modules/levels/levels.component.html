@@ -1,0 +1,132 @@
+<div class="levels-container">
+  <!-- Header -->
+  <div class="levels-header">
+    <h1>Learning Paths</h1>
+    <p class="subtitle">Master game development from basics to advanced</p>
+  </div>
+
+  <!-- Levels Grid -->
+  <div class="levels-grid">
+    <div *ngFor="let level of levels" class="level-card-wrapper">
+      <!-- Level Card -->
+      <div class="level-card" [class.locked]="!isLevelUnlocked(level)" [style.borderColor]="level.color">
+        <!-- Lock Overlay -->
+        <div *ngIf="!isLevelUnlocked(level)" class="lock-overlay">
+          <i class="pi pi-lock lock-icon"></i>
+          <p class="unlock-message">{{ getUnlockMessage(level) }}</p>
+          <p class="or-divider">OR</p>
+          <button 
+            pButton 
+            [label]="'Purchase - $' + (level.price || 0).toFixed(2)"
+            class="purchase-btn"
+            icon="pi pi-shopping-cart"
+            (click)="purchaseLevel(level)"></button>
+        </div>
+
+        <!-- Card Header -->
+        <div class="card-header" [style.background]="'linear-gradient(135deg, ' + level.color + '20 0%, ' + level.color + '05 100%)'">
+          <div class="level-emoji">{{ level.emoji }}</div>
+          <div class="level-info">
+            <h2>{{ level.title }}</h2>
+            <p class="difficulty">{{ level.difficulty | uppercase }}</p>
+          </div>
+        </div>
+
+        <!-- Card Body -->
+        <div class="card-body">
+          <p class="description">{{ level.description }}</p>
+
+          <!-- Progress Bar -->
+          <div class="progress-section">
+            <div class="progress-label">
+              <span>Progress</span>
+              <span class="progress-percent">{{ level.progress }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="level.progress" [style.background]="level.color"></div>
+            </div>
+          </div>
+
+          <!-- Expand/Collapse Button -->
+          <button 
+            class="expand-btn"
+            (click)="toggleLevel(level.id)"
+            [class.expanded]="isLevelExpanded(level.id)">
+            <i class="pi" [ngClass]="isLevelExpanded(level.id) ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+            {{ isLevelExpanded(level.id) ? 'Hide' : 'Show' }} Lessons & Exercises
+          </button>
+        </div>
+
+        <!-- Expandable Content -->
+        <div class="expandable-content" *ngIf="isLevelExpanded(level.id)">
+          <!-- Lessons Section -->
+          <div class="section">
+            <div class="section-header">
+              <i class="pi pi-book"></i>
+              <h3>📚 Lessons ({{ level.lessons.length }})</h3>
+            </div>
+            <div class="lessons-list">
+              <div *ngFor="let lesson of level.lessons" class="lesson-item">
+                <div class="lesson-badge">{{ lesson.order }}</div>
+                <div class="lesson-content">
+                  <h4>{{ lesson.title }}</h4>
+                  <p>{{ lesson.description }}</p>
+                </div>
+                <button 
+                  pButton 
+                  icon="pi pi-play" 
+                  class="action-btn lesson-btn"
+                  [disabled]="!isLevelUnlocked(level)"
+                  title="Watch lesson"></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exercises Section -->
+          <div class="section">
+            <div class="section-header">
+              <i class="pi pi-code"></i>
+              <h3>💻 Exercises ({{ level.exercises.length }})</h3>
+            </div>
+            <div class="exercises-list">
+              <div *ngFor="let exercise of level.exercises" class="exercise-item">
+                <div class="exercise-status">
+                  <div class="checkbox">
+                    <i *ngIf="exercise.completed" class="pi pi-check"></i>
+                  </div>
+                </div>
+                <div class="exercise-content">
+                  <div class="exercise-title-row">
+                    <h4>{{ exercise.title }}</h4>
+                    <span class="difficulty-badge" [ngClass]="getDifficultyBadgeClass(exercise.difficulty)">
+                      {{ exercise.difficulty }}
+                    </span>
+                  </div>
+                  <p>{{ exercise.description }}</p>
+                </div>
+                <button 
+                  pButton 
+                  icon="pi pi-code" 
+                  class="action-btn exercise-btn"
+                  (click)="startExercise(exercise, level.id)"
+                  [disabled]="!isLevelUnlocked(level)"
+                  label="Code"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card-footer">
+          <button 
+            pButton 
+            [label]="isLevelUnlocked(level) ? 'Start Level' : 'Locked'"
+            (click)="startLevel(level)"
+            [disabled]="!isLevelUnlocked(level)"
+            class="start-btn"
+            [style.background]="'linear-gradient(135deg, ' + level.color + ' 0%, ' + level.color + 'dd 100%)'"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="editor-wrapper">
+  <!-- Games Limit Bar -->
+  <app-games-limit-bar
+    [gameCount]="gameCount"
+    [gameLimit]="gameLimit"
+    [userRole]="userProfile?.role || 'free'"
+  ></app-games-limit-bar>
+
+  <div class="editor-layout">
+    <div class="editor-section">
+      <app-code-editor
+        [initialCode]="gameCode"
+        language="javascript"
+        (codeRun)="onRunCode($event)"
+        (codeSaved)="onSaveCode($event)"
+      ></app-code-editor>
+    </div>
+    <div class="preview-section">
+      <app-game-canvas
+        [gameCode]="displayedCode"
+        [gameConfig]="gameConfig"
+      ></app-game-canvas>
+    </div>
+  </div>
+
+  <!-- Reusable Modal -->
+  <app-modal
+    [isOpen]="modalIsOpen"
+    [config]="modalConfig"
+    (closed)="onModalClosed()"
+  ></app-modal>
+
+  <!-- Input Modal for Project Name -->
+  <app-input-modal
+    [isOpen]="inputModalIsOpen"
+    [config]="inputModalConfig"
+    (confirmed)="onInputModalConfirmed($event)"
+    (cancelled)="onInputModalCancelled()"
+  ></app-input-modal>
+</div>

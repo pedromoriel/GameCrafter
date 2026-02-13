@@ -1,0 +1,34 @@
+<div class="modal-overlay" *ngIf="isOpen">
+  <div class="modal-container" [ngClass]="'modal-' + (config?.type || 'info')">
+    <div class="modal-header">
+      <h2>{{ config?.title }}</h2>
+      <button class="close-btn" (click)="onClose()">
+        <span>&times;</span>
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="modal-icon">{{ getIcon() }}</div>
+      <p class="modal-message">{{ config?.message }}</p>
+    </div>
+
+    <div class="modal-footer">
+      <button
+        class="modal-btn"
+        *ngFor="let button of config?.buttons"
+        [ngClass]="'btn-' + (button.color || 'primary')"
+        (click)="onButtonClick(button)"
+      >
+        {{ button.label }}
+      </button>
+      <!-- Default close button if no buttons provided -->
+      <button
+        *ngIf="!config || !config.buttons || config.buttons.length === 0"
+        class="modal-btn btn-primary"
+        (click)="onClose()"
+      >
+        Close
+      </button>
+    </div>
+  </div>
+</div>

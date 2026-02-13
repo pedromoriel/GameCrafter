@@ -1,0 +1,124 @@
+<div class="home-container">
+  <!-- Header -->
+  <div class="home-header">
+    <div class="header-content">
+      <h1>Welcome to GameCrafter 🎮</h1>
+      <p class="subtitle">Learn programming by creating games</p>
+    </div>
+  </div>
+
+  <!-- Mini Dashboard -->
+  <div class="mini-dashboard">
+    <!-- My Games -->
+    <div class="dashboard-section my-games-section">
+      <div class="section-header">
+        <i class="pi pi-save"></i>
+        <h3>My Games</h3>
+      </div>
+      
+      <!-- Show games if exists -->
+      <div *ngIf="hasGames" class="games-grid">
+        <div class="game-card" *ngFor="let game of games">
+          <div class="game-thumbnail">{{ game.thumbnail }}</div>
+          <div class="game-info">
+            <h4 
+              class="game-name-link"
+              (click)="openGameActionsModal(game)">
+              {{ game.name }}
+            </h4>
+            <p class="game-date">{{ getFormattedDate(game.createdAt) }}</p>
+          </div>
+          <button 
+            pButton 
+            icon="pi pi-pencil" 
+            class="edit-btn p-button-rounded p-button-text"
+            [routerLink]="['/editor', game.id]"></button>
+        </div>
+        <div class="game-card add-new">
+          <button pButton label="New Game" icon="pi pi-plus" [routerLink]="['/editor']" class="w-full"></button>
+        </div>
+      </div>
+
+      <!-- Show "No saved games" if empty -->
+      <div *ngIf="!hasGames" class="no-games-container">
+        <div class="no-games-icon">🎮</div>
+        <p class="no-games-text">No saved games yet</p>
+        <button 
+          pButton 
+          label="Create New Game" 
+          icon="pi pi-plus"
+          class="new-game-btn"
+          [routerLink]="['/editor']"></button>
+      </div>
+    </div>
+
+    <!-- Recent Lesson / Start Learning -->
+    <div class="dashboard-section recent-lesson-section">
+      <div class="section-header">
+        <i class="pi" [ngClass]="hasRecentLesson ? 'pi-bookmark' : 'pi-play'"></i>
+        <h3>{{ hasRecentLesson ? 'Last Lesson' : 'Start Learning' }}</h3>
+      </div>
+      
+      <!-- Show recent lesson if exists -->
+      <div *ngIf="hasRecentLesson && recentLesson" class="recent-lesson-card">
+        <div class="lesson-emoji">{{ recentLesson.emoji }}</div>
+        <div class="lesson-info">
+          <h4>{{ recentLesson.title }}</h4>
+          <p class="lesson-level">{{ recentLesson.levelTitle }} Level</p>
+          <p class="lesson-time">{{ getFormattedDate(recentLesson.lastAccessed) }}</p>
+        </div>
+        <button 
+          pButton 
+          label="Continue" 
+          icon="pi pi-play"
+          class="continue-btn"
+          (click)="continueLesson()"></button>
+      </div>
+
+      <!-- Show Start Learning if no recent lesson -->
+      <div *ngIf="!hasRecentLesson" class="start-learning-card">
+        <div class="learning-emoji">📚</div>
+        <div class="learning-info">
+          <h4>Begin Your Journey</h4>
+          <p class="learning-desc">Start learning programming with our structured levels</p>
+        </div>
+        <button 
+          pButton 
+          label="Start Now" 
+          icon="pi pi-arrow-right"
+          class="start-btn"
+          [routerLink]="['/learning']"></button>
+      </div>
+    </div>
+
+    <!-- Level Progress -->
+    <div class="dashboard-section level-progress-section">
+      <div class="section-header">
+        <i class="pi pi-chart-line"></i>
+        <h3>Your Progress</h3>
+      </div>
+      <div class="levels-progress">
+        <div class="progress-item" *ngFor="let level of levels">
+          <div class="progress-header">
+            <span class="level-emoji">{{ level.emoji }}</span>
+            <span class="level-title">{{ level.title }}</span>
+            <span class="progress-percent">{{ level.progress }}%</span>
+          </div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" [style.width.%]="level.progress" [style.background]="level.color"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Game Actions Modal -->
+<app-game-actions-modal
+  [(isOpen)]="gameActionsModalOpen"
+  [gameName]="selectedGame?.name || ''"
+  [upgradeLimitReached]="gameUpgradeLimitReached"
+  [limitMessage]="limitMessage"
+  (actionTriggered)="onGameActionTriggered($event)"
+  (upgradeClicked)="onGameActionModalUpgrade()">
+</app-game-actions-modal>

@@ -1,0 +1,540 @@
+.home-container {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  color: #e0e0e0;
+}
+
+// Header Styles
+.home-header {
+  margin-bottom: 50px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  padding: 50px 30px;
+  backdrop-filter: blur(10px);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(0, 255, 136, 0.1) 0%, transparent 70%);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -5%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+    animation: float-reverse 8s ease-in-out infinite;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #888;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+// Mini Dashboard
+.mini-dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+  margin-bottom: 30px;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (min-width: 1400px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.dashboard-section {
+  background: linear-gradient(135deg, rgba(26, 26, 46, 0.8) 0%, rgba(26, 26, 46, 0.5) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  border-radius: 12px;
+  padding: 25px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.95) 0%, rgba(26, 26, 46, 0.7) 100%);
+    transform: translateY(-2px);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+
+    i {
+      color: #00d4ff;
+      font-size: 18px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #e0e0e0;
+      margin: 0;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+// Recent Lesson Section
+.recent-lesson-section {
+  @media (min-width: 1024px) {
+    grid-column: 1 / -1;
+  }
+
+  @media (min-width: 1400px) {
+    grid-column: 2;
+  }
+}
+
+.recent-lesson-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(0, 255, 136, 0.05) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(0, 255, 136, 0.1) 100%);
+    border-color: rgba(0, 212, 255, 0.4);
+  }
+
+  .lesson-emoji {
+    font-size: 36px;
+    flex-shrink: 0;
+  }
+
+  .lesson-info {
+    flex: 1;
+
+    h4 {
+      font-size: 16px;
+      color: #e0e0e0;
+      margin: 0 0 5px 0;
+      font-weight: 600;
+    }
+
+    .lesson-level {
+      font-size: 13px;
+      color: #00d4ff;
+      margin: 0 0 3px 0;
+      font-weight: 500;
+    }
+
+    .lesson-time {
+      font-size: 12px;
+      color: #666;
+      margin: 0;
+    }
+  }
+
+  .continue-btn {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: #0f0f1e;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #00e6ff 0%, #00bfd4 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+    }
+  }
+}
+
+// Level Progress Section
+.level-progress-section {
+  @media (min-width: 1400px) {
+    grid-column: 3;
+  }
+}
+
+.levels-progress {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.progress-item {
+  .progress-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+
+    .level-emoji {
+      font-size: 20px;
+    }
+
+    .level-title {
+      flex: 1;
+      color: #e0e0e0;
+      font-weight: 500;
+    }
+
+    .progress-percent {
+      color: #00d4ff;
+      font-weight: 600;
+      min-width: 40px;
+      text-align: right;
+    }
+  }
+
+  .progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 212, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+
+    .progress-bar {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+    }
+  }
+}
+
+// My Games Section
+.my-games-section {
+  @media (min-width: 1400px) {
+    grid-column: 1;
+  }
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+
+  // Custom scrollbar
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 212, 255, 0.05);
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 212, 255, 0.3);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(0, 212, 255, 0.5);
+    }
+  }
+}
+
+.game-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(26, 26, 46, 0.6) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(26, 26, 46, 0.8) 100%);
+    border-color: rgba(0, 212, 255, 0.3);
+  }
+
+  .game-thumbnail {
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  .game-info {
+    flex: 1;
+    min-width: 0;
+
+    h4 {
+      font-size: 13px;
+      color: #e0e0e0;
+      margin: 0 0 2px 0;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .game-name-link {
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #00d4ff;
+        text-decoration: underline;
+      }
+    }
+
+    .game-date {
+      font-size: 11px;
+      color: #666;
+      margin: 0;
+    }
+  }
+
+  .edit-btn {
+    flex-shrink: 0;
+    color: #00d4ff;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #00e6ff;
+      background: rgba(0, 212, 255, 0.1);
+    }
+  }
+
+  &.add-new {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+    border: 1px dashed rgba(0, 255, 136, 0.3);
+    padding: 12px;
+
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+      border: none;
+      color: #0f0f1e;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 8px;
+      font-size: 12px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: linear-gradient(135deg, #1aff99 0%, #1ae6ff 100%);
+        transform: translateY(-1px);
+      }
+    }
+  }
+}
+
+// Start Learning Card Styles
+.start-learning-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 212, 255, 0.05) 100%);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.15) 0%, rgba(0, 212, 255, 0.1) 100%);
+    border-color: rgba(0, 255, 136, 0.5);
+  }
+
+  .learning-emoji {
+    font-size: 40px;
+    flex-shrink: 0;
+  }
+
+  .learning-info {
+    flex: 1;
+
+    h4 {
+      font-size: 16px;
+      color: #e0e0e0;
+      margin: 0 0 5px 0;
+      font-weight: 600;
+    }
+
+    .learning-desc {
+      font-size: 13px;
+      color: #888;
+      margin: 0;
+      font-weight: 300;
+    }
+  }
+
+  .start-btn {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #00ff88 0%, #00d4ff 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    color: #0f0f1e;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #1aff99 0%, #1ae6ff 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 255, 136, 0.3);
+    }
+  }
+}
+
+// No Games Container Styles
+.no-games-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.05) 0%, rgba(26, 26, 46, 0.6) 100%);
+  border: 1px dashed rgba(0, 212, 255, 0.2);
+  border-radius: 10px;
+  text-align: center;
+
+  .no-games-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    opacity: 0.6;
+  }
+
+  .no-games-text {
+    font-size: 15px;
+    color: #888;
+    margin: 0 0 20px 0;
+    font-weight: 300;
+  }
+
+  .new-game-btn {
+    background: linear-gradient(135deg, #00d4ff 0%, #00a8cc 100%);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 25px;
+    color: #0f0f1e;
+    font-weight: 600;
+    font-size: 13px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: linear-gradient(135deg, #00e6ff 0%, #00bfd4 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+    }
+  }
+}
+
+// Animations
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(20px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .home-container {
+    padding: 15px;
+  }
+
+  .home-header {
+    padding: 30px 20px;
+
+    .header-content h1 {
+      font-size: 32px;
+    }
+  }
+
+  .mini-dashboard {
+    gap: 20px;
+  }
+
+  .recent-lesson-card {
+    flex-direction: column;
+    text-align: center;
+
+    .continue-btn {
+      width: 100%;
+    }
+  }
+
+  .start-learning-card {
+    flex-direction: column;
+    text-align: center;
+
+    .start-btn {
+      width: 100%;
+    }
+  }
+
+  .games-grid {
+    max-height: none;
+  }
+
+  .no-games-container {
+    padding: 30px 15px;
+
+    .no-games-icon {
+      font-size: 40px;
+    }
+
+    .new-game-btn {
+      width: 100%;
+    }
+  }
+}

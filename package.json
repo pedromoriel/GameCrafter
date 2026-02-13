@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "@angular/animations": "^21.1.4",
+    "@angular/fire": "^20.0.1",
+    "@angular/platform-browser-dynamic": "^21.1.4",
+    "@capacitor/android": "^8.1.0",
+    "@capacitor/app": "^8.0.1",
+    "@capacitor/cli": "^7.5.0",
+    "@capacitor/core": "^8.1.0",
+    "@ionic/angular": "^8.7.17",
+    "@ionic/angular-toolkit": "^12.3.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^21.1.4",
+    "@types/node": "^25.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.55.0",
+    "@typescript-eslint/parser": "^8.55.0"
+  }
+}

@@ -1,0 +1,41 @@
+<div class="limit-bar-container">
+  <div class="limit-info-header">
+    <div class="limit-text">
+      <span class="label">📊 Your Games:</span>
+      <span class="count">{{ gameCount }}</span>
+      <span class="separator">/</span>
+      <span class="limit">{{ gameLimit === Infinity ? '∞' : gameLimit }}</span>
+    </div>
+    <div class="limit-badge" [ngClass]="'role-' + userRole.toLowerCase()">
+      {{ userRole | uppercase }}
+    </div>
+  </div>
+  
+  <div class="progress-container">
+    <div class="progress-bar">
+      <div 
+        class="progress-fill" 
+        [style.width.%]="getProgressPercentage()"
+        [ngClass]="getProgressClass()"
+      ></div>
+    </div>
+  </div>
+
+  <div class="limit-footer">
+    <span class="progress-text">
+      {{ gameCount }} of {{ gameLimit === Infinity ? '∞' : gameLimit }} slots used
+    </span>
+    <span 
+      *ngIf="gameCount >= gameLimit && gameLimit !== Infinity" 
+      class="limit-warning"
+    >
+      🔒 Limit reached - upgrade to save more
+    </span>
+    <span 
+      *ngIf="gameLimit !== Infinity && gameCount < gameLimit" 
+      class="slots-remaining"
+    >
+      ✨ {{ gameLimit - gameCount }} slot{{ gameLimit - gameCount !== 1 ? 's' : '' }} remaining
+    </span>
+  </div>
+</div>

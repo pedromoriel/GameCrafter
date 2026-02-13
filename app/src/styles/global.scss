@@ -1,0 +1,351 @@
+/* Global Styles for GameCrafter */
+
+:root {
+  --primary-color: #00d4ff;
+  --secondary-color: #ff6b6b;
+  --success-color: #4caf50;
+  --warning-color: #ffb74d;
+  --danger-color: #f44336;
+  --dark-bg: #0f0f1e;
+  --darker-bg: #1a1a2e;
+  --darkest-bg: #1e1e2e;
+  --text-primary: #e0e0e0;
+  --text-secondary: #888888;
+  --border-color: #333333;
+
+  /* PrimeNG Theme Variables */
+  --primary: #00d4ff;
+  --primary-light: rgba(0, 212, 255, 0.1);
+  --surface-0: #0f0f1e;
+  --surface-50: #1a1a2e;
+  --surface-100: #1e1e2e;
+  --surface-200: #2a3142;
+  --surface-300: #3a4456;
+  --text-color: #e0e0e0;
+  --text-color-secondary: #888888;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--dark-bg);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #00a8cc;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Ionic Customization */
+ion-app {
+  --ion-background-color: var(--dark-bg);
+  --ion-text-color: var(--text-primary);
+  --ion-border-color: var(--border-color);
+  --ion-color-primary: var(--primary-color);
+  --ion-color-secondary: var(--secondary-color);
+  --ion-color-success: var(--success-color);
+  --ion-color-warning: var(--warning-color);
+  --ion-color-danger: var(--danger-color);
+}
+
+ion-toolbar {
+  --background: var(--darkest-bg);
+  --color: var(--text-primary);
+  --border-color: var(--border-color);
+}
+
+ion-header {
+  --background: var(--darkest-bg);
+}
+
+ion-content {
+  --background: var(--dark-bg);
+  --color: var(--text-primary);
+}
+
+ion-card {
+  --background: var(--darkest-bg);
+  --color: var(--text-primary);
+  --border-color: var(--border-color);
+}
+
+ion-input {
+  --color: var(--text-primary);
+  --placeholder-color: var(--text-secondary);
+  --padding-start: 12px;
+  --padding-end: 12px;
+}
+
+ion-input input {
+  background: var(--darker-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 8px 12px;
+}
+
+ion-button {
+  --border-radius: 4px;
+  text-transform: none;
+  font-weight: 600;
+}
+
+ion-button[color='dark'] {
+  --background: var(--darkest-bg);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--darker-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Code Editor Styling */
+.monaco-editor {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  background: var(--darkest-bg);
+  color: var(--text-primary);
+}
+
+/* PrimeNG Profile Menu Styling */
+.profile-menu {
+  &.p-menu {
+    background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%) !important;
+    border: 2px solid rgba(0, 212, 255, 0.4) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 212, 255, 0.2), 0 0 20px rgba(0, 255, 136, 0.1) !important;
+    min-width: 320px !important;
+    animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    overflow: hidden !important;
+  }
+
+  .p-menu-list {
+    padding: 0.5rem 0 !important;
+  }
+
+  .p-menuitem {
+    margin: 0 !important;
+    transition: all 0.2s ease !important;
+
+    .p-menuitem-content {
+      padding: 1rem 1.5rem !important;
+      color: #e0e0e0 !important;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+      cursor: pointer !important;
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 0.75rem !important;
+
+      &::before {
+        content: '';
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        height: 100% !important;
+        width: 3px !important;
+        background: linear-gradient(180deg, #00d4ff 0%, #00ff88 100%) !important;
+        transform: scaleY(0) !important;
+        transform-origin: center !important;
+        transition: transform 0.3s ease !important;
+      }
+
+      &:hover {
+        background: linear-gradient(90deg, rgba(0, 212, 255, 0.15) 0%, rgba(0, 255, 136, 0.05) 100%) !important;
+        color: #00d4ff !important;
+        padding-left: 1.75rem !important;
+        box-shadow: inset 0 0 12px rgba(0, 212, 255, 0.1) !important;
+
+        &::before {
+          transform: scaleY(1) !important;
+        }
+      }
+
+      .p-icon,
+      .pi {
+        color: #00d4ff !important;
+        font-size: 1.1rem !important;
+        flex-shrink: 0 !important;
+      }
+    }
+
+    // Último item (Logout)
+    &:last-child .p-menuitem-content {
+      color: #ff6b6b !important;
+      border-top: 1px solid rgba(0, 212, 255, 0.2) !important;
+      margin-top: 0.5rem !important;
+
+      &::before {
+        background: linear-gradient(180deg, #ff6b6b 0%, #ff8888 100%) !important;
+      }
+
+      &:hover {
+        background: linear-gradient(90deg, rgba(255, 107, 107, 0.15) 0%, rgba(255, 136, 136, 0.05) 100%) !important;
+        color: #ff8888 !important;
+        box-shadow: inset 0 0 12px rgba(255, 107, 107, 0.1) !important;
+      }
+
+      .p-icon,
+      .pi {
+        color: #ff6b6b !important;
+      }
+    }
+  }
+
+  .p-menu-separator {
+    margin: 0.75rem 0 !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent 0%, rgba(0, 212, 255, 0.3) 50%, transparent 100%) !important;
+  }
+
+  /* Menu Header */
+  .menu-profile-header {
+    display: flex !important;
+    gap: 1rem !important;
+    padding: 1.5rem !important;
+    border-bottom: 2px solid rgba(0, 212, 255, 0.3) !important;
+    background: linear-gradient(135deg, rgba(0, 212, 255, 0.12) 0%, rgba(0, 255, 136, 0.05) 100%) !important;
+    position: relative !important;
+    overflow: hidden !important;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    p-avatar .p-avatar {
+      border: 3px solid rgba(0, 212, 255, 0.6) !important;
+      box-shadow: 0 0 16px rgba(0, 212, 255, 0.3) !important;
+      flex-shrink: 0 !important;
+    }
+
+    .menu-profile-info {
+      flex: 1 !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      position: relative !important;
+      z-index: 1 !important;
+
+      .menu-profile-name {
+        margin: 0 0 0.25rem 0 !important;
+        color: #00d4ff !important;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        text-shadow: 0 0 8px rgba(0, 212, 255, 0.2) !important;
+      }
+
+      .menu-profile-email {
+        margin: 0 0 0.75rem 0 !important;
+        color: #888 !important;
+        font-size: 0.875rem !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+      }
+
+      .p-tag {
+        align-self: flex-start !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.3px !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+
+        &.p-tag-secondary {
+          background: linear-gradient(135deg, #4a4a6a 0%, #3a3a5a 100%) !important;
+          color: #b0b0d0 !important;
+          border: 1px solid rgba(176, 176, 208, 0.3) !important;
+        }
+
+        &.p-tag-warning {
+          background: linear-gradient(135deg, #8a7a2a 0%, #6a5a1a 100%) !important;
+          color: #ffd700 !important;
+          border: 1px solid rgba(255, 215, 0, 0.3) !important;
+        }
+
+        &.p-tag-success {
+          background: linear-gradient(135deg, #2a7a5a 0%, #1a5a3a 100%) !important;
+          color: #00ff88 !important;
+          border: 1px solid rgba(0, 255, 136, 0.3) !important;
+          text-shadow: 0 0 8px rgba(0, 255, 136, 0.2) !important;
+        }
+      }
+    }
+  }
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+}

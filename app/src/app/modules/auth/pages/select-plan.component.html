@@ -1,0 +1,55 @@
+<div class="plan-container">
+  <!-- Current Plan Info -->
+  <div *ngIf="currentRole && userProfile" class="current-plan-info">
+    <p class="current-label">Current Plan: <span class="plan-badge">{{ userProfile.role | uppercase }}</span></p>
+  </div>
+
+  <div class="plan-header">
+    <h1>Choose Your Plan</h1>
+    <p>Select the perfect plan for your game development journey</p>
+  </div>
+
+  <!-- Message for non-authenticated users -->
+  <div *ngIf="!isUserAuthenticated" class="auth-prompt">
+    <p class="prompt-text">Inicia sesión o regístrate para seleccionar un plan</p>
+    <div class="auth-buttons">
+      <button pButton label="Log In" [routerLink]="['/auth/login']" class="auth-btn"></button>
+      <button pButton label="Sign Up" [routerLink]="['/auth/register']" severity="success" class="auth-btn"></button>
+    </div>
+  </div>
+
+  <!-- Plans grid -->
+  <div class="plan-grid">
+    <div *ngFor="let plan of plans" [ngClass]="{ 'plan-card': true, 'highlighted': plan.highlighted, 'current-plan': currentRole === plan.name }">
+      <div *ngIf="currentRole === plan.name" class="current-badge">Current Plan</div>
+      
+      <div class="plan-header-card">
+        <div class="plan-title">{{ plan.title }}</div>
+        <div class="price">{{ plan.price }}</div>
+      </div>
+      <div class="plan-content">
+        <p class="description">{{ plan.description }}</p>
+        
+        <div class="games-info">
+          <strong>Games: {{ plan.games }}</strong>
+        </div>
+
+        <ul class="features">
+          <li *ngFor="let feature of plan.features">
+            <span class="checkmark">✓</span>
+            {{ feature }}
+          </li>
+        </ul>
+
+        <button
+          pButton
+          (click)="selectPlan(plan)"
+          [disabled]="isButtonDisabled(plan)"
+          [label]="isLoading && selectedPlan?.name === plan.name ? 'Loading...' : getButtonLabel(plan)"
+          [severity]="currentRole === plan.name ? 'secondary' : isUpgrade(plan.name) ? 'success' : 'info'"
+          class="w-full">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

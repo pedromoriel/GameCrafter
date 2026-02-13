@@ -1,0 +1,151 @@
+.limit-bar-container {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.08) 0%, rgba(0, 255, 136, 0.04) 100%);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.limit-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.limit-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.label {
+  color: #888;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.count {
+  color: #00d4ff;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.separator {
+  color: #555;
+}
+
+.limit {
+  color: #00ff88;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.limit-badge {
+  font-size: 11px;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.limit-badge.role-free {
+  background: linear-gradient(135deg, #4a4a6a 0%, #5a5a7a 100%);
+  color: #b0b0d0;
+  border: 1px solid #6a6a8a;
+}
+
+.limit-badge.role-premium {
+  background: linear-gradient(135deg, #6a5a2a 0%, #7a6a3a 100%);
+  color: #ffd700;
+  border: 1px solid #8a7a4a;
+}
+
+.limit-badge.role-pro {
+  background: linear-gradient(135deg, #2a5a4a 0%, #3a6a5a 100%);
+  color: #00ff88;
+  border: 1px solid #4a7a6a;
+}
+
+.progress-container {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-fill {
+  height: 100%;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  border-radius: 12px;
+}
+
+.progress-fill.low {
+  background: linear-gradient(90deg, #00ff88, #00d4ff);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.4);
+}
+
+.progress-fill.medium {
+  background: linear-gradient(90deg, #ffd700, #ff9500);
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
+.progress-fill.high {
+  background: linear-gradient(90deg, #ff6b6b, #ff4444);
+  box-shadow: 0 0 12px rgba(255, 107, 107, 0.4);
+}
+
+.limit-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  gap: 12px;
+}
+
+.progress-text {
+  color: #888;
+  font-weight: 500;
+}
+
+.slots-remaining {
+  color: #00ff88;
+  font-weight: 700;
+}
+
+.limit-warning {
+  color: #ff6b6b;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 768px) {
+  .limit-bar-container {
+    padding: 14px;
+    margin-bottom: 20px;
+  }
+
+  .limit-info-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .limit-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

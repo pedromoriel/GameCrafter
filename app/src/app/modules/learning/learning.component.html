@@ -1,0 +1,221 @@
+<div class="learning-container">
+  <!-- Levels View -->
+  <div *ngIf="viewMode === 'levels'" class="levels-view">
+    <!-- Header -->
+    <div class="learning-header">
+      <div class="header-content">
+        <h1>📚 Learning Paths</h1>
+        <p class="subtitle">Master game development from basics to advanced</p>
+      </div>
+    </div>
+
+    <!-- Levels Grid -->
+    <div class="levels-grid">
+      <div *ngFor="let level of levels" class="level-card-wrapper">
+        <div class="level-card" [class.locked]="!isLevelUnlocked(level)" [style.borderColor]="level.color">
+          <!-- Lock Overlay -->
+          <div *ngIf="!isLevelUnlocked(level)" class="lock-overlay">
+            <i class="pi pi-lock lock-icon"></i>
+            <p class="unlock-message">{{ getUnlockMessage(level) }}</p>
+            <p *ngIf="canPurchaseLevel(level)" class="or-divider">OR</p>
+            <button 
+              *ngIf="canPurchaseLevel(level)"
+              pButton 
+              [label]="'Purchase - $' + (level.price || 0).toFixed(2)"
+              class="purchase-btn"
+              icon="pi pi-shopping-cart"
+              (click)="purchaseLevel(level)"></button>
+          </div>
+
+          <!-- Card Header -->
+          <div class="card-header" [style.background]="'linear-gradient(135deg, ' + level.color + '20 0%, ' + level.color + '05 100%)'">
+            <div class="level-emoji">{{ level.emoji }}</div>
+            <div class="level-info">
+              <h2>{{ level.title }}</h2>
+              <p class="difficulty">{{ level.difficulty | uppercase }}</p>
+            </div>
+          </div>
+
+          <!-- Card Body -->
+          <div class="card-body">
+            <p class="description">{{ level.description }}</p>
+
+            <!-- Progress Bar -->
+            <div class="progress-section">
+              <div class="progress-label">
+                <span>Progress</span>
+                <span class="progress-percent">{{ level.progress }}%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" [style.width.%]="level.progress" [style.background]="level.color"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer">
+            <button 
+              pButton 
+              [label]="getLevelButtonLabel(level)"
+              (click)="startLevel(level)"
+              [disabled]="!isLevelUnlocked(level)"
+              class="start-btn"
+              [style.background]="'linear-gradient(135deg, ' + level.color + ' 0%, ' + level.color + 'dd 100%)'"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning View -->
+  <div *ngIf="viewMode === 'learning'" class="learning-view">
+    <!-- Header with Back Button -->
+    <div class="learning-header">
+      <div class="header-content">
+        <button pButton icon="pi pi-arrow-left" class="back-btn" (click)="goBackToLevels()"></button>
+        <div class="header-title">
+          <h1>📚 {{ selectedLevel?.title }}</h1>
+          <p class="current-level" *ngIf="selectedLevel">
+            <span class="progress-badge">{{ completionProgress }}% Complete</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="learning-layout">
+      <!-- Left Sidebar - Tree View -->
+      <div class="learning-sidebar">
+        <div class="sidebar-header">
+          <h2>📖 Topics</h2>
+        </div>
+
+        <p-tree
+          [value]="treeNodes"
+          selectionMode="single"
+          (onNodeSelect)="onNodeSelect($event)"
+          styleClass="learning-tree">
+        </p-tree>
+      </div>
+
+      <!-- Right Content Area -->
+      <div class="learning-content">
+        <!-- Content Display Area -->
+        <div class="content-area" *ngIf="selectedContent">
+          <!-- Progress Bar -->
+          <div class="content-progress">
+            <div class="progress-info">
+              <span class="content-type">{{ getContentIcon(selectedContent.type) }} {{ selectedContent.type | uppercase }}</span>
+              <span class="content-counter">{{ currentContentIndex + 1 }} / {{ selectedLesson!.contentItems.length }}</span>
+            </div>
+            <p-progressBar
+              [value]="getContentProgress()"
+              [showValue]="false"
+              styleClass="content-progress-bar">
+            </p-progressBar>
+          </div>
+
+          <!-- Content Title -->
+          <div class="content-header">
+            <h2>{{ selectedContent.title }}</h2>
+          </div>
+
+          <!-- Content Display Based on Type -->
+          <div class="content-display">
+            <!-- Text Content -->
+            <div *ngIf="selectedContent.type === 'text'" class="text-content">
+              <p [innerHTML]="selectedContent.content | replaceLineBreaks"></p>
+            </div>
+
+            <!-- Video Content -->
+            <div *ngIf="selectedContent.type === 'video'" class="video-content">
+              <div class="video-container">
+                <iframe
+                  [src]="selectedContent.videoUrl | safeUrl"
+                  width="100%"
+                  height="400"
+                  frameborder="0"
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <p *ngIf="selectedContent.duration" class="video-duration">
+                ⏱️ Video Duration: {{ selectedContent.duration }} minutes
+              </p>
+            </div>
+
+            <!-- Image Content -->
+            <div *ngIf="selectedContent.type === 'image'" class="image-content">
+              <img [src]="selectedContent.imageUrl" alt="{{ selectedContent.title }}" class="content-image">
+            </div>
+
+            <!-- Exercise Content -->
+            <div *ngIf="selectedContent.type === 'exercise'" class="exercise-content">
+              <div class="exercise-editor">
+                <div class="editor-header">
+                  <h3>🎯 Practice Exercise</h3>
+                  <button pButton icon="pi pi-external-link" class="icon-btn" title="Open in full editor"></button>
+                </div>
+                <textarea
+                  class="code-editor"
+                  [value]="selectedContent!.exerciseCode"
+                  readonly>
+                </textarea>
+                <button
+                  pButton
+                  label="📝 Try in Editor"
+                  icon="pi pi-code"
+                  class="try-btn"
+                  (click)="navigateToEditor()">
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Navigation & Actions -->
+          <div class="content-footer">
+            <div class="nav-buttons">
+              <button
+                pButton
+                icon="pi pi-chevron-left"
+                label="Previous"
+                class="nav-btn"
+                [disabled]="!hasPreviousContent()"
+                (click)="previousContent()">
+              </button>
+
+              <button
+                pButton
+                [label]="selectedLesson?.completed ? '✓ Completed' : 'Mark Complete'"
+                [icon]="selectedLesson?.completed ? 'pi pi-check' : 'pi pi-check-circle'"
+                class="complete-btn"
+                [class.completed]="selectedLesson?.completed"
+                (click)="markAsCompleted()">
+              </button>
+
+              <button
+                pButton
+                icon="pi pi-chevron-right"
+                label="Next"
+                class="nav-btn"
+                [disabled]="!hasNextContent()"
+                (click)="nextContent()">
+              </button>
+            </div>
+
+            <!-- Lesson Info -->
+            <div class="lesson-info" *ngIf="selectedLesson">
+              <p class="lesson-description">{{ selectedLesson.description }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" *ngIf="!selectedContent">
+          <div class="empty-icon">📚</div>
+          <h2>Select a Topic</h2>
+          <p>Choose a topic from the sidebar to start learning!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

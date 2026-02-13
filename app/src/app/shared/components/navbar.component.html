@@ -1,0 +1,83 @@
+<nav class="navbar-main">
+  <!-- Brand -->
+  <div class="navbar-brand-section">
+    <span class="brand-icon">🎮</span>
+    <span class="brand-text">GameCrafter</span>
+  </div>
+
+  <!-- Navigation Buttons -->
+  <div class="navbar-nav-section">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
+      <i class="pi pi-home"></i>
+      <span>Home</span>
+    </a>
+    <a routerLink="/editor" routerLinkActive="active" class="nav-link">
+      <i class="pi pi-code"></i>
+      <span>Editor</span>
+    </a>
+    <a routerLink="/learning" routerLinkActive="active" class="nav-link">
+      <i class="pi pi-book"></i>
+      <span>Learning Path</span>
+    </a>
+    <a routerLink="/community" routerLinkActive="active" class="nav-link">
+      <i class="pi pi-users"></i>
+      <span>Community</span>
+    </a>
+  </div>
+
+  <!-- Upgrade Button -->
+  <div class="navbar-upgrade-section">
+    <button 
+      type="button"
+      class="upgrade-button"
+      [routerLink]="['/select-plan']">
+      <span class="upgrade-text">✨ Upgrade Now</span>
+    </button>
+  </div>
+
+  <!-- Profile Section -->
+  <div class="navbar-profile-section">
+    <button 
+      type="button"
+      class="profile-trigger"
+      (click)="profileMenu.toggle($event)"
+      #profileTrigger>
+      <p-avatar 
+        *ngIf="(userProfile$ | async) as profile"
+        [image]="profile?.photoURL || ''"
+        [label]="profile?.displayName ? getInitials(profile.displayName) : '?'"
+        shape="circle"
+        size="large">
+      </p-avatar>
+    </button>
+
+    <p-menu 
+      #profileMenu 
+      [model]="profileMenuItems"
+      appendTo="body"
+      [showTransitionOptions]="'150ms cubic-bezier(0, 0, 0.2, 1)'"
+      [hideTransitionOptions]="'150ms cubic-bezier(0.4, 0, 0.6, 1)'"
+      styleClass="profile-menu"
+      [popup]="true">
+      <ng-template pTemplate="start">
+        <div class="menu-profile-header" *ngIf="(userProfile$ | async) as profile">
+          <p-avatar 
+            [image]="profile?.photoURL || ''"
+            [label]="profile?.displayName ? getInitials(profile.displayName) : '?'"
+            shape="circle"
+            size="xlarge">
+          </p-avatar>
+          <div class="menu-profile-info">
+            <p class="menu-profile-name">{{ profile?.displayName || 'User' }}</p>
+            <p class="menu-profile-email">{{ profile?.email }}</p>
+            <p-tag 
+              *ngIf="profile?.role"
+              [value]="profile.role | uppercase"
+              [severity]="getRoleSeverity(profile.role)">
+            </p-tag>
+          </div>
+        </div>
+      </ng-template>
+    </p-menu>
+  </div>
+</nav>

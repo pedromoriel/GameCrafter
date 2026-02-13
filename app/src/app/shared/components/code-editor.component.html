@@ -1,0 +1,11 @@
+<div class="editor-container">
+  <div class="editor-header">
+    <h3>Code Editor</h3>
+    <div class="editor-actions">
+      <button (click)="onSave()" class="btn btn-success">💾 Save</button>
+      <button (click)="onRun()" class="btn btn-primary">▶ Run</button>
+      <button (click)="onClear()" class="btn btn-danger">🗑 Clear</button>
+    </div>
+  </div>
+  <div #editorContainer class="editor"></div>
+</div>
