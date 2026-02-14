@@ -1,6 +1,21 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
+// Helper function to create SVG data URIs
+function generateSvgDataUri(emoji: string, bgColor: string): string {
+  const svg = `<svg width="320" height="240" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:${bgColor};stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <rect width="320" height="240" fill="url(#grad)"/>
+    <text x="160" y="120" font-size="80" text-anchor="middle" dominant-baseline="central" font-family="Arial">${emoji}</text>
+  </svg>`;
+  return 'data:image/svg+xml,' + encodeURIComponent(svg);
+}
+
 export interface AssetItem {
   id: string;
   name: string;
@@ -38,7 +53,7 @@ export class AssetStoreService {
       isProOnly: false,
       rating: 4.8,
       downloads: 1250,
-      preview: 'https://via.placeholder.com/320x240?text=Spaceship+Shooter',
+      preview: generateSvgDataUri('🚀', '#00a8ff'),
       previewCode: `class AdvancedSpaceship {
   constructor(scene, x, y) {
     this.scene = scene;
@@ -69,7 +84,7 @@ export class AssetStoreService {
       isProOnly: true,
       rating: 4.9,
       downloads: 2840,
-      preview: 'https://via.placeholder.com/320x240?text=Particles+Pro',
+      preview: generateSvgDataUri('✨', '#ff6b9d'),
       previewCode: `const fireEmitter = this.particleSystem.createEmitter({
   type: 'fire',
   intensity: 0.8,
@@ -93,7 +108,7 @@ export class AssetStoreService {
       isProOnly: false,
       rating: 4.7,
       downloads: 1890,
-      preview: 'https://via.placeholder.com/320x240?text=UI+Framework',
+      preview: generateSvgDataUri('🎨', '#ffa500'),
       previewCode: `const uiPanel = new UIPanel(scene, 'main');
 uiPanel.add('button', 'Play', () => startGame());
 uiPanel.add('slider', 'Volume', 0, 1);`,
@@ -115,7 +130,7 @@ uiPanel.add('slider', 'Volume', 0, 1);`,
       isProOnly: false,
       rating: 4.6,
       downloads: 3120,
-      preview: 'https://via.placeholder.com/320x240?text=Collision+System',
+      preview: generateSvgDataUri('💥', '#ff4444'),
       previewCode: `const collider = this.physics.add.collider(player, enemies);
 collider.on('collision', (a, b) => handleCollision(a, b));`,
       tags: ['physics', 'collision', 'optimization'],
@@ -136,7 +151,7 @@ collider.on('collision', (a, b) => handleCollision(a, b));`,
       isProOnly: true,
       rating: 4.9,
       downloads: 1560,
-      preview: 'https://via.placeholder.com/320x240?text=Enemy+AI',
+      preview: generateSvgDataUri('🤖', '#9d4edd'),
       previewCode: `const enemy = new AIEnemy(scene, x, y);
 enemy.setBehavior('patrol');
 enemy.setAggression(difficulty);`,
@@ -158,7 +173,7 @@ enemy.setAggression(difficulty);`,
       isProOnly: false,
       rating: 4.5,
       downloads: 2100,
-      preview: 'https://via.placeholder.com/320x240?text=Camera+System',
+      preview: generateSvgDataUri('📷', '#3a86ff'),
       previewCode: `this.camera.smoothFollow(player, 0.1);
 this.camera.shake(500, 0.02);
 this.camera.zoom(1.5);`,
@@ -180,7 +195,7 @@ this.camera.zoom(1.5);`,
       isProOnly: true,
       rating: 4.8,
       downloads: 980,
-      preview: 'https://via.placeholder.com/320x240?text=Sound+Manager',
+      preview: generateSvgDataUri('🔊', '#00ff88'),
       previewCode: `this.soundManager.play('explosion', { volume: 0.8 });
 this.soundManager.playMusic('background', { fade: 1000 });`,
       tags: ['audio', 'sound', 'music', 'pro'],
@@ -201,7 +216,7 @@ this.soundManager.playMusic('background', { fade: 1000 });`,
       isProOnly: false,
       rating: 4.4,
       downloads: 1750,
-      preview: 'https://via.placeholder.com/320x240?text=Power+Ups',
+      preview: generateSvgDataUri('⚡', '#ffda03'),
       previewCode: `const powerUp = new PowerUp(scene, 'shield', x, y);
 powerUp.apply(player);
 powerUp.onExpire(() => removeBuff(player));`,

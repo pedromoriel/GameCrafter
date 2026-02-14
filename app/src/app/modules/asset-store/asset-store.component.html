@@ -24,7 +24,7 @@
           class="category-btn"
           [class.active]="selectedCategory === cat"
           (click)="selectCategory(cat)">
-          {{ getCategoryLabel(cat) }}
+          {{ getCategoryTranslationKey(cat) | translate }}
         </button>
       </div>
 

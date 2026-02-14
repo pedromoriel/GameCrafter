@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AssetStoreService, AssetItem } from '../../core/services/asset-store.service';
@@ -27,8 +27,7 @@ export class AssetStoreComponent implements OnInit, OnDestroy {
   constructor(
     private assetStoreService: AssetStoreService,
     private authService: AuthService,
-    private userService: UserService,
-    private translateService: TranslateService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -97,16 +96,24 @@ export class AssetStoreComponent implements OnInit, OnDestroy {
 
   canPurchase(asset: AssetItem): boolean {
     if (!this.userProfile) return false;
-    if (asset.isProOnly) {
-      return this.userProfile.role === UserRole.PRO;
+
+    // Los assets gratuitos no se pueden comprar
+    if (!asset.isPremium && !asset.isProOnly) {
+      return false;
     }
-    if (asset.isPremium) {
-      return (
-        this.userProfile.role === UserRole.PREMIUM ||
-        this.userProfile.role === UserRole.PRO
-      );
+
+    // PRO already has everything included
+    if (this.userProfile.role === UserRole.PRO) {
+      return false;
     }
-    return true;
+
+    // PREMIUM can purchase PRO-only assets not included in their plan
+    if (this.userProfile.role === UserRole.PREMIUM) {
+      return asset.isProOnly && !asset.includesInPremium;
+    }
+
+    // FREE can purchase any paid asset
+    return asset.isPremium || asset.isProOnly;
   }
 
   canDownload(asset: AssetItem): boolean {
@@ -169,7 +176,7 @@ export class AssetStoreComponent implements OnInit, OnDestroy {
     });
   }
 
-  getCategoryLabel(category: string): string {
+  getCategoryTranslationKey(category: string): string {
     const labelMap: { [key: string]: string } = {
       mechanics: 'assetStore.categoryMechanics',
       effects: 'assetStore.categoryEffects',
@@ -177,7 +184,6 @@ export class AssetStoreComponent implements OnInit, OnDestroy {
       gameplay: 'assetStore.categoryGameplay',
       physics: 'assetStore.categoryPhysics'
     };
-    const key = labelMap[category];
-    return key ? this.translateService.instant(key) : category;
+    return labelMap[category] || category;
   }
 }

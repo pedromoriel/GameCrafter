@@ -2,7 +2,7 @@
   "navbar": {
     "brand": "GameCrafter",
     "home": "Inicio",
-    "editor": "Editor",    "assetStore": "Tienda de Activos",    "learning": "Ruta de Aprendizaje",
+    "editor": "Editor",    "assetStore": "Tienda de Assets",    "learning": "Mi Aprendizaje",
     "community": "Comunidad",
     "logout": "Cerrar Sesión",
     "account": "Cuenta"
@@ -133,7 +133,7 @@
         "Integración completa de Phaser",
         "Soporte prioritario",
         "Plantillas de juegos",
-        "Acceso a tienda de activos"
+        "Acceso a tienda de Assets"
       ],
       "pro": [
         "Juegos ilimitados",
@@ -141,7 +141,7 @@
         "Integración completa de Phaser",
         "Soporte prioritario 24/7",
         "Plantillas premium",
-        "Acceso a tienda de activos",
+        "Acceso a tienda de Assets",
         "Soporte de dominio personalizado",
         "Colaboración en equipo"
       ]
@@ -217,20 +217,20 @@
     "notifications": "Notificaciones"
   },
   "assetStore": {
-    "title": "Tienda de Activos",
-    "subtitle": "Descubre activos de juegos premium, fragmentos de código y efectos visuales",
+    "title": "Tienda de Assets",
+    "subtitle": "Descubre Assets de juegos premium, fragmentos de código y efectos visuales",
     "categories": "Categorías",
-    "allAssets": "Todos los Activos",
+    "allAssets": "Todos los Assets",
     "yourPlan": "Tu Plan",
-    "searchPlaceholder": "Buscar activos por nombre, etiqueta o descripción...",
-    "assetsFound": "activos encontrados",
+    "searchPlaceholder": "Buscar Assets por nombre, etiqueta o descripción...",
+    "assetsFound": "Assets encontrados",
     "download": "Descargar",
     "purchase": "Comprar",
     "install": "Instalar",
     "restricted": "Restringido",
     "includedPremium": "Incluido en Premium",
     "includedPro": "Incluido en Pro",
-    "noResults": "No se encontraron activos",
+    "noResults": "No se encontraron Assets",
     "tryDifferentSearch": "Intenta ajustar tu búsqueda o filtros",
     "categoryMechanics": "Mecánica de Juegos",
     "categoryEffects": "Efectos Visuales",
@@ -238,4 +238,4 @@
     "categoryGameplay": "Jugabilidad",
     "categoryPhysics": "Física"
   }
-}}
+}
