@@ -10,9 +10,10 @@
     <div class="editor-section">
       <app-code-editor
         [initialCode]="gameCode"
-        language="javascript"
+        [language]="programmingLanguage"
         (codeRun)="onRunCode($event)"
         (codeSaved)="onSaveCode($event)"
+        (languageChanged)="changeProgrammingLanguage($event)"
       ></app-code-editor>
     </div>
     <div class="preview-section">

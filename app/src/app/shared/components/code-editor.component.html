@@ -1,10 +1,48 @@
 <div class="editor-container">
   <div class="editor-header">
-    <h3>Code Editor</h3>
+    <div class="editor-branding">
+      <h3>{{ 'editor.editorName' | translate }}</h3>
+      <span class="phaser-badge">
+        <span class="phaser-label">{{ 'editor.phaserLibrary' | translate }}</span>
+        <span class="language-badge">
+          {{ currentLanguage === 'javascript' ? ('editor.javascript' | translate) : ('editor.typescript' | translate) }}
+        </span>
+      </span>
+    </div>
+    <div class="language-selector">
+      <label>{{ 'editor.language' | translate }}:</label>
+      <select [(ngModel)]="currentLanguage" (change)="onLanguageChange()" class="language-dropdown">
+        <option value="javascript">{{ 'editor.javascript' | translate }}</option>
+        <option value="typescript">{{ 'editor.typescript' | translate }}</option>
+      </select>
+    </div>
+    <div class="asset-selector-wrapper">
+      <label class="asset-label">{{ 'editor.assets' | translate }}:</label>
+      <div class="asset-selector-container">
+        <button (click)="toggleAssetDropdown()" class="btn btn-asset" title="{{ 'editor.codeAssets' | translate }}">
+          🧩 {{ 'editor.availableCodeBlocks' | translate }} ({{ getAssetCountText() }})
+        </button>
+        <div class="asset-dropdown" *ngIf="showAssetDropdown">
+          <div class="asset-dropdown-header">
+            {{ 'editor.availableAssets' | translate }}
+          </div>
+          <div class="asset-list">
+            <div *ngFor="let asset of availableAssets" 
+                 class="asset-item" 
+                 (click)="insertAssetCode(asset.id)"
+                 title="{{ asset.description }}">
+              <span class="asset-icon">{{ asset.icon }}</span>
+              <span class="asset-name">{{ asset.name }}</span>
+              <span class="asset-desc">{{ asset.description }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="editor-actions">
-      <button (click)="onSave()" class="btn btn-success">💾 Save</button>
-      <button (click)="onRun()" class="btn btn-primary">▶ Run</button>
-      <button (click)="onClear()" class="btn btn-danger">🗑 Clear</button>
+      <button (click)="onSave()" class="btn btn-success">💾 {{ 'editor.save' | translate }}</button>
+      <button (click)="onRun()" class="btn btn-primary">▶ {{ 'editor.run' | translate }}</button>
+      <button (click)="onClear()" class="btn btn-danger">🗑 {{ 'common.delete' | translate }}</button>
     </div>
   </div>
   <div #editorContainer class="editor"></div>

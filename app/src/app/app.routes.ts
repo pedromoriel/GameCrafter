@@ -58,8 +58,7 @@ export const routes: Routes = [
   {
     path: 'asset-store',
     canActivate: [authGuard],
-    loadComponent: () => import('./modules/asset-store/asset-store.component').then(m => m.AssetStoreComponent),
-    data: { role: UserRole.PREMIUM }
+    loadComponent: () => import('./modules/asset-store/asset-store.component').then(m => m.AssetStoreComponent)
   },
   {
     path: 'community',

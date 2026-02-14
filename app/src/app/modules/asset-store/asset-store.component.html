@@ -1,4 +1,132 @@
-<div class="content-wrapper">
-  <h2>Premium Assets Coming Soon</h2>
-  <p>Explore thousands of game sprites, backgrounds, and sounds.</p>
+<div class="store-container">
+  <!-- Header -->
+  <div class="store-header">
+    <div class="header-content">
+      <h1>{{ 'assetStore.title' | translate }}</h1>
+      <p class="header-subtitle">{{ 'assetStore.subtitle' | translate }}</p>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="store-content">
+    <!-- Sidebar Filters -->
+    <aside class="filters-sidebar">
+      <div class="filter-section">
+        <h3>{{ 'assetStore.categories' | translate }}</h3>
+        <button 
+          class="category-btn"
+          [class.active]="selectedCategory === null"
+          (click)="selectCategory(null)">
+          {{ 'assetStore.allAssets' | translate }}
+        </button>
+        <button 
+          *ngFor="let cat of categories"
+          class="category-btn"
+          [class.active]="selectedCategory === cat"
+          (click)="selectCategory(cat)">
+          {{ getCategoryTranslationKey(cat) | translate }}
+        </button>
+      </div>
+
+      <div class="filter-section">
+        <h3>{{ 'assetStore.yourPlan' | translate }}</h3>
+        <div class="plan-badge">
+          <span *ngIf="userProfile?.role === 'free'">🆓 Free</span>
+          <span *ngIf="userProfile?.role === 'premium'">⭐ Premium</span>
+          <span *ngIf="userProfile?.role === 'pro'">👑 Pro</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Assets Grid -->
+    <main class="assets-main">
+      <!-- Search Bar -->
+      <div class="search-container">
+        <input 
+          type="text" 
+          class="search-input"
+          [placeholder]="'assetStore.searchPlaceholder' | translate"
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange(searchQuery)"
+        />
+        <span class="search-icon">🔍</span>
+      </div>
+
+      <!-- Results Info -->
+      <div class="results-info">
+        <span>{{ filteredAssets.length }} {{ 'assetStore.assetsFound' | translate }}</span>
+      </div>
+
+      <!-- Assets Grid -->
+      <div class="assets-grid" *ngIf="filteredAssets.length > 0; else noResults">
+        <div *ngFor="let asset of filteredAssets" class="asset-card">
+          <!-- Preview Image -->
+          <div class="asset-preview">
+            <img [src]="asset.preview" [alt]="asset.name" />
+            <div class="asset-overlay">
+              <button class="btn-download" (click)="downloadAsset(asset)" [disabled]="!canDownload(asset)">
+                {{ canDownload(asset) ? ('assetStore.download' | translate) : ('assetStore.restricted' | translate) }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Asset Info -->
+          <div class="asset-info">
+            <!-- Header -->
+            <div class="asset-header">
+              <h3 class="asset-name">{{ asset.name }}</h3>
+              <div class="asset-rating">
+                <span class="stars">⭐ {{ asset.rating }}</span>
+                <span class="downloads">({{ asset.downloads }})</span>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <p class="asset-description">{{ asset.description }}</p>
+
+            <!-- Tags -->
+            <div class="asset-tags">
+              <span *ngFor="let tag of asset.tags" class="tag">{{ tag }}</span>
+            </div>
+
+            <!-- Plan Badges -->
+            <div class="plan-badges" *ngIf="getPlanBadges(asset).length > 0">
+              <span *ngIf="getPlanBadges(asset).includes('premium')" class="badge badge-premium">
+                {{ 'assetStore.includedPremium' | translate }}
+              </span>
+              <span *ngIf="getPlanBadges(asset).includes('pro')" class="badge badge-pro">
+                {{ 'assetStore.includedPro' | translate }}
+              </span>
+            </div>
+
+            <!-- Footer -->
+            <div class="asset-footer">
+              <span class="price">{{ getPriceDisplay(asset) }}</span>
+              <button 
+                class="btn-purchase"
+                [class.free]="!asset.isPremium && !asset.isProOnly"
+                [disabled]="!canPurchase(asset)"
+                (click)="purchaseAsset(asset)">
+                {{ getPriceDisplay(asset) === 'Free' ? ('assetStore.install' | translate) : ('assetStore.purchase' | translate) }}
+              </button>
+            </div>
+
+            <!-- Meta Info -->
+            <div class="asset-meta">
+              <small>by {{ asset.author }} • v{{ asset.version }}</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results -->
+      <ng-template #noResults>
+        <div class="no-results">
+          <div class="no-results-icon">🔍</div>
+          <h3>{{ 'assetStore.noResults' | translate }}</h3>
+          <p>{{ 'assetStore.tryDifferentSearch' | translate }}</p>
+        </div>
+      </ng-template>
+    </main>
+  </div>
 </div>
